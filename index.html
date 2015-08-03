@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Calculadora</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="css_calculadora1.css" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+	</head>
+	<body>
+		<div id="contenido">
+		    <header>
+		       <h1>Calculadora Básica en JS</h1>
+		    </header>
+		    <section>
+		       <article>
+		           <table>
+		           		<tr>	
+		           			<td id="pantalla" colspan="5" class="estilos-pantalla" style="background:#525846;">
+		           				<p id="operando1"></p><p id="operacion"></p><p id="operando2"></p>
+		           			</td>
+		           		</tr>
+		           	
+		           		<tr>
+		           			<td onclick="elegirNumero(7)">7</td>
+		           			<td onclick="elegirNumero(8)">8</td>
+		           			<td onclick="elegirNumero(9)">9</td>
+		           			<td onclick="elegirSigno('/')">/</td>
+		           			<td onclick="limpiar()">CE</td>	
+		           		</tr>
+
+		           		<tr>	
+		           			<td onclick="elegirNumero(4)">4</td>	
+		           			<td onclick="elegirNumero(5)">5</td>	
+		           			<td onclick="elegirNumero(6)">6</td>	
+		           			<td onclick="elegirSigno('x')">x</td>	
+		           			<td onclick="elegirNumero('%')">%</td>	
+		           		</tr>
+
+		           		<tr>	
+		           			<td onclick="elegirNumero(1)">1</td>	
+		           			<td onclick="elegirNumero(2)">2</td>	
+		           			<td onclick="elegirNumero(3)">3</td>	
+		           			<td onclick="elegirSigno('-')">-</td>	
+		           			<td rowspan="2" onclick="calcular()">=</td>
+		           		</tr>
+
+		           		<tr>	
+		           			<td onclick="elegirNumero(0)" colspan="2">0</td>	
+		           			<td onclick="elegirSigno('.')">.</td>	
+		           			<td onclick="elegirSigno('+')">+</td>	
+		           		</tr>
+		           </table>
+		       </article>
+		    </section>
+		    <footer>
+		    	<p>Realizada por VRV</p>
+		    </footer>
+		</div>
+
+		<script>
+			var num, n1, n2, signo;
+			var signoActual = " "; 
+			//g.innerHTML = n1 + " + " + n2;  	para mostrar resultado
+
+			//expresion general
+			var op1 = document.getElementById("operando1");
+			var opSigno = document.getElementById("operacion");
+			var op2 = document.getElementById("operando2");
+
+			//c es un caracter
+			function elegirSigno(signo){
+				opSigno.innerHTML = signo; 
+				signoActual = signo; 
+			}
+
+			function elegirNumero(num){
+				if(signoActual == " "){
+					n1 = num; 
+					op1.innerHTML = n1;
+				} else {
+					n2 = num;
+					op2.innerHTML = n2;
+				}
+			}
+
+			function calcular(){
+				if (signoActual == '+') { 
+					op1.innerHTML = n1 + n2; 
+					n1 = n1 + n2; 
+					n2 = 0; 
+					op2.innerHTML = " ";
+				}
+				if (signoActual == '-') { 
+					op1.innerHTML = n1 - n2; 
+					n1 = n1 - n2; 
+					n2 = 0; 
+					op2.innerHTML = " "; 
+				}
+				if (signoActual == 'x') { 
+					op1.innerHTML = n1 * n2; 
+					n1 = n1 * n2; 
+					n2 = 0; 
+					op2.innerHTML = " "; 
+				} 
+				if (signoActual == '/') { 
+					op1.innerHTML = n1 / n2; 
+					n1 = n1 / n2; 
+					n2 = 0; 
+					op2.innerHTML = " "; 
+				} 
+			}
+
+			function limpiar(){
+				op1.innerHTML = "";
+				opSigno.innerHTML = "";
+				op2.innerHTML = "";
+				num = 0, n1 = 0, n2 = 0, signo = 0, signoActual = " ";
+			}
+		</script>
+	</body>
+</html>
