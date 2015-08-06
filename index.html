@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="css_calculadora1.css" />
 		<link rel="shortcut icon" href="/favicon.ico" />
+		<script src="//www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 	</head>
 	<body>
 		<div id="contenido">
@@ -58,21 +59,52 @@
 		</div>
 
 		<script>
+
+			Parse.initialize("wfJMYlPSBcdec262Pb6nMBr40BBEthof5tetHf5u", "fB3LBhQBL40Ia0zAiWo0kG3J1U4TCVbSsgnzLYRA");
+
+			/*var TestObject = Parse.Object.extend("TestObject");
+			var testObject = new TestObject();
+			testObject.save({foo: "bar"}).then(function(object) {
+			  alert("yay! it worked");
+			});*/
+
+			var user = new Parse.User();
+			user.set("username", "vincetroid");
+			user.set("password", "1234");
+			user.set("email", "vince_trance@hotmail.com");
+			  
+			// other fields can be set just like with Parse.Object
+			user.set("phone", "650-555-0000");
+			  
+			user.signUp(null, {
+			  success: function(user) {
+			    // Hooray! Let them use the app now.
+			  },
+			  error: function(user, error) {
+			    // Show the error message somewhere and let the user try again.
+			    alert("Error: " + error.code + " " + error.message);
+			  }
+			});
+
+
+
 			var num, n1, n2, signo;
 			var signoActual = " "; 
-			//g.innerHTML = n1 + " + " + n2;  	para mostrar resultado
 
-			//expresion general
 			var op1 = document.getElementById("operando1");
 			var opSigno = document.getElementById("operacion");
 			var op2 = document.getElementById("operando2");
 
-			//c es un caracter
+			//Se elige signo de operacion, se muestra y se asigna a la variable auxiliar asignoActual para funcion elegirNumero
 			function elegirSigno(signo){
 				opSigno.innerHTML = signo; 
 				signoActual = signo; 
 			}
 
+			/*Se elige numero. Si no hay signo significa que es la primera entrada de numero, es el operando 1.
+			En caso contrario significa que es la segunda entrada de numero, es decir, el operando 2.
+
+			  El parametro se asigna a n1 o n2 y se muestra en pantalla*/
 			function elegirNumero(num){
 				if(signoActual == " "){
 					n1 = num; 
@@ -83,12 +115,13 @@
 				}
 			}
 
+			/*La variable auxiliar de signo elegido dice implicitamente que si ya existe el signo, al menos ya se insertó el operando 1 y lo más seguro es que también el operando 2*/
 			function calcular(){
 				if (signoActual == '+') { 
-					op1.innerHTML = n1 + n2; 
-					n1 = n1 + n2; 
+					op1.innerHTML = n1 + n2; //El resultado se muestra en la parte del operando 1 
+					n1 = n1 + n2; //El resultado se almacena en n1
 					n2 = 0; 
-					op2.innerHTML = " ";
+					op2.innerHTML = " "; //Se muestra nada porque ya se muestra en op1
 				}
 				if (signoActual == '-') { 
 					op1.innerHTML = n1 - n2; 
